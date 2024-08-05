@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>TEST PYTHON</h1>
+
+    <input type="text" id="number" placeholder="input number">
+    <div style="margin-top: 20px;">
+        <button onclick="generate('segitiga')">Generate Segitiga</button>
+        <button onclick="generate('ganjil')">Generate Bilangan Ganjil</button>
+        <button onclick="generate('prima')">Generate Bilangan Prima</button>
+    </div>
+
+    <h3>Result:</h3>
+    <div id="result">
+
+    </div>
+    <script>
+        function generate(type) {
+            const number = document.getElementById('number').value;
+            const result = document.getElementById('result');
+
+            if (isNaN(number) || number ==='') {
+                alert('Masukkan angka yang benar');
+                return;
+            }
+
+            $.ajax({
+                url: '/' + type,
+                method: 'POST',
+                data: JSON.stringify({ number: number}),
+                contentType: 'application/json',
+                success: function (res) {
+                    $("#result").html(res.result)
+                }
+            });
+        }
+    </script>
+</body>
+</html>
